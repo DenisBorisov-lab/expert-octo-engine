@@ -6,8 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.UUID;
-
 
 @Entity
 @Table(name = "password")
@@ -22,10 +20,24 @@ public class Password {
     private Long id;
     @Column(name = "service_name", columnDefinition = "TEXT", nullable = false)
     private String service;
+
+    @Column(name = "login", columnDefinition = "TEXT", nullable = false)
+    private String login;
+
     @Column(name = "password", columnDefinition = "TEXT", nullable = false)
     private String password;
 
     @ManyToOne
     @JoinColumn(name = "person_id")
     private Person person;
+
+    @Override
+    public String toString() {
+        return "Password{" +
+                "id=" + id +
+                ", service='" + service + '\'' +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }
