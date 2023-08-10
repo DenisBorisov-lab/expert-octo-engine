@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @Repository
 public interface PersonRepository extends CrudRepository<Person, UUID> {
-    List<Person> findPersonsByName(String name);
+    Person findPersonByName(String name);
 
     Person findPersonById(UUID uuid);
 

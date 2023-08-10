@@ -10,11 +10,13 @@ public interface PersonService {
 
     Person getPersonById(UUID uuid);
 
-    List<Person> getPersonsByName(String name);
+    Person getPersonByName(String name);
 
     List<Person> getAllPersons();
 
     void removePerson(Person person);
 
     void changeNameById(UUID id, String name);
+
+    Person register(Person person);
 }

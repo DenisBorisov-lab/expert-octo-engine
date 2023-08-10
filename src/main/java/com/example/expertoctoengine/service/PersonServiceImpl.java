@@ -33,8 +33,8 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public List<Person> getPersonsByName(String name) {
-        return personRepository.findPersonsByName(name);
+    public Person getPersonByName(String name) {
+        return personRepository.findPersonByName(name);
     }
 
     @Override
@@ -54,5 +54,14 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public void changeNameById(UUID id, String name) {
         personRepository.updateNameById(id, name);
+    }
+
+    @Override
+    public Person register(Person person) {
+        Person data = personRepository.findPersonByName(person.getName());
+        if (data == null){
+            return personRepository.save(person);
+        }
+        return null;
     }
 }
