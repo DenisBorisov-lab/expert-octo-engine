@@ -9,6 +9,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
+import java.util.UUID;
+
 @SpringBootApplication
 public class ExpertOctoEngineApplication {
 
@@ -23,6 +25,11 @@ public class ExpertOctoEngineApplication {
 
         personService.savePerson(person);
         passwordService.savePassword(password);
+
+        Person object = personService.getAllPersons().get(0);
+
+        passwordService.changeServiceByPeronIdAndLoginAndPassword(object, "dickhead@gmail.com", "MikeOxLong228", "Yandex");
+//        System.out.println(passwordService.getPasswordsByPersonIdAndServiceAndLogin(object.getId(), "Spotify", "dickhead@gmail.com"));
     }
 
 }
