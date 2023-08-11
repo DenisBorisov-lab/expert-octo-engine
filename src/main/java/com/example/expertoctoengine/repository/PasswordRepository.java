@@ -14,7 +14,7 @@ public interface PasswordRepository extends CrudRepository<Password, Long> {
     Password findPasswordById(Long id);
     List<Password> findPasswordsByPersonId(UUID id);
     List<Password> findPasswordsByPersonIdAndService(UUID id, String service);
-    List<Password> findPasswordsByPersonIdAndServiceAndLogin(UUID id, String service, String login);
+    Password findPasswordByPersonIdAndServiceAndLogin(UUID id, String service, String login);
 
     @Modifying
     @Query("update Password u set u.password = :password where u.person = :id and u.service = :service and u.login = :login")

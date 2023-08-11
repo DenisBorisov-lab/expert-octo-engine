@@ -22,8 +22,13 @@ public class PasswordServiceImpl implements PasswordService {
     }
 
     @Override
-    public void savePassword(Password password) {
-        passwordRepository.save(password);
+    public Password savePassword(Password password) {
+        Password data = passwordRepository.findPasswordByPersonIdAndServiceAndLogin(
+                password.getPerson().getId(),
+                password.getService(),
+                password.getLogin());
+
+        return data == null ? passwordRepository.save(password) : null;
     }
 
     @Override
@@ -51,8 +56,8 @@ public class PasswordServiceImpl implements PasswordService {
     }
 
     @Override
-    public List<Password> getPasswordsByPersonIdAndServiceAndLogin(UUID uuid, String service, String login) {
-        return passwordRepository.findPasswordsByPersonIdAndServiceAndLogin(uuid, service, login);
+    public Password getPasswordByPersonIdAndServiceAndLogin(UUID uuid, String service, String login) {
+        return passwordRepository.findPasswordByPersonIdAndServiceAndLogin(uuid, service, login);
     }
 
     @Override

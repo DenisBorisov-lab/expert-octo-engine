@@ -27,8 +27,7 @@ public class Password {
     @Column(name = "password", columnDefinition = "TEXT", nullable = false)
     private String password;
 
-    @ManyToOne
-    @JoinColumn(name = "person_id")
+    @ManyToOne(fetch = FetchType.LAZY)
     private Person person;
 
     @Override

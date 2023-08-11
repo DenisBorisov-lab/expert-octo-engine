@@ -59,9 +59,6 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public Person register(Person person) {
         Person data = personRepository.findPersonByName(person.getName());
-        if (data == null){
-            return personRepository.save(person);
-        }
-        return null;
+        return data == null ? personRepository.save(person) : null;
     }
 }

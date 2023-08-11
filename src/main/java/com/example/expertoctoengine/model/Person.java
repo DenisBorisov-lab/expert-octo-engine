@@ -31,4 +31,8 @@ public class Person {
             fetch = FetchType.EAGER
     )
     private List<Password> passwords;
+
+    public void removePassword(Password password){
+        this.passwords.remove(password);
+    }
 }
