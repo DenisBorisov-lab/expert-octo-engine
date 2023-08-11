@@ -2,9 +2,7 @@ package com.example.expertoctoengine.controller;
 
 import com.example.expertoctoengine.model.Password;
 import com.example.expertoctoengine.model.Person;
-import com.example.expertoctoengine.service.OutputService;
-import com.example.expertoctoengine.service.PasswordService;
-import com.example.expertoctoengine.service.PersonService;
+import com.example.expertoctoengine.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
@@ -23,7 +21,7 @@ public class UserCommands {
     private Person signedAccount;
 
     @Autowired
-    public UserCommands(PersonService personService, PasswordService passwordService) {
+    public UserCommands(PersonServiceImpl personService, PasswordServiceImpl passwordService) {
         this.personService = personService;
         this.passwordService = passwordService;
     }
@@ -76,7 +74,7 @@ public class UserCommands {
         }
     }
 
-    @ShellMethod(key = "password -id", value = "Getting password. Example: password -id <id number>")
+    @ShellMethod(key = "password -id", value = "Getting password by id. Example: password -id <id number>")
     public String getPasswordById(@ShellOption Long id) {
         if (isAuthorized()) {
             Password password = passwordService.getPasswordById(id);
@@ -90,16 +88,15 @@ public class UserCommands {
         }
     }
 
-    // FIXME: 11.08.2023 поправить вывод
-    // FIXME: 11.08.2023 проверить количество паролей в списке и проверить на null
-    // FIXME: 11.08.2023 Написать Описание
-    @ShellMethod(key = "password -s", value = "Описание")
+    @ShellMethod(key = "password -s", value = "Getting passwords by service. Example: passwords -s <service>")
     public String getPasswordsByService(@ShellOption String service) {
-        if (signedAccount != null) {
-            List<Password> passwordsByPersonIdAndService = passwordService.getPasswordsByPersonIdAndService(signedAccount.getId(), service);
-            return passwordsByPersonIdAndService.toString();
+        if (isAuthorized()) {
+            List<Password> passwords = passwordService.getPasswordsByPersonIdAndService(
+                    signedAccount.getId(),
+                    service);
+            return passwords != null ? OutputService.outputListPasswords(passwords) : NO_PASSWORDS;
         } else {
-            return ACCOUNT_NOT_FOUND;
+            return LOGIN_FIRSTLY;
         }
     }
 
