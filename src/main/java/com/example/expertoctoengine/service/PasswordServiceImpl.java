@@ -47,7 +47,8 @@ public class PasswordServiceImpl implements PasswordService {
 
     @Override
     public List<Password> getPasswordsByPersonId(UUID id) {
-        return passwordRepository.findPasswordsByPersonId(id);
+        List<Password> passwords = passwordRepository.findPasswordsByPersonId(id);
+        return passwords.isEmpty() ? null : passwords;
     }
 
     @Override

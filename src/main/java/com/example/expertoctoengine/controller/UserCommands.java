@@ -100,16 +100,13 @@ public class UserCommands {
         }
     }
 
-    // FIXME: 11.08.2023 поправить вывод
-    // FIXME: 11.08.2023 проверить количество паролей в списке и проверить на null
-    // FIXME: 11.08.2023 Написать Описание
-    @ShellMethod(key = "password -a")
+    @ShellMethod(key = "password -a", value = "Getting all passwords by user id. Example: password -a")
     public String getAllPasswords() {
-        if (signedAccount != null) {
+        if (isAuthorized()) {
             List<Password> passwords = passwordService.getPasswordsByPersonId(signedAccount.getId());
-            return passwords.toString();
+            return passwords != null ? OutputService.outputListPasswords(passwords) : NO_PASSWORDS;
         } else {
-            return ACCOUNT_NOT_FOUND;
+            return LOGIN_FIRSTLY;
         }
     }
 
