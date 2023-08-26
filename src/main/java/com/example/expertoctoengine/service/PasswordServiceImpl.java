@@ -41,6 +41,16 @@ public class PasswordServiceImpl implements PasswordService {
     }
 
     @Override
+    public void removeAllByPersonId(UUID id) {
+        passwordRepository.removeAllByPersonId(id);
+    }
+
+    @Override
+    public void removeALLByServiceName(UUID id, String serviceName) {
+        passwordRepository.removeALLByPersonIdAndService(id, serviceName);
+    }
+
+    @Override
     public Password getPasswordById(Long id) {
         return passwordRepository.findPasswordById(id);
     }

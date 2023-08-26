@@ -100,6 +100,20 @@ public class UserCommands {
         }
     }
 
+    @ShellMethod(key = "password", value = "Getting password by service and login. Example: password <service> <login>")
+    public String getPasswordByServiceAndLogin(@ShellOption(arity = 2) String[] args){
+        if(isAuthorized()){
+            String serviceName = args[0];
+            String login = args[1];
+            Password password = passwordService.getPasswordByPersonIdAndServiceAndLogin(signedAccount.getId(), serviceName, login);
+            return password != null ? OutputService.outputPassword(password) : NO_SUCH_PASSWORD;
+
+        }else{
+            return ACCOUNT_NOT_FOUND;
+        }
+
+    }
+
     @ShellMethod(key = "password -a", value = "Getting all passwords by user id. Example: password -a")
     public String getAllPasswords() {
         if (isAuthorized()) {
@@ -110,25 +124,46 @@ public class UserCommands {
         }
     }
 
-    // FIXME: 11.08.2023 Предыдущие проблемы но ещё проверки на существование пароля
-    @ShellMethod(key = "delete -id", value = "Описание")
+    @ShellMethod(key = "delete -id", value = "Removal password by id. Example: delete -id <id number>")
     public String delete(@ShellOption Long id) {
-        if (signedAccount != null) {
+        if (isAuthorized()) {
             Password passwordById = passwordService.getPasswordById(id);
             passwordService.removePassword(passwordById);
-            return "Пароль удалён!";
+            return passwordById != null ? PASSWORD_DELETED_SUCCESSFULLY : NO_PASSWORD_WITH_SUCH_ID;
         } else {
             return ACCOUNT_NOT_FOUND;
         }
     }
 
-    @ShellMethod(key = "delete -a")
+    @ShellMethod(key = "delete -a", value = "Removal all passwords for this account. Example: delete -a")
     public String deleteAll() {
-        return null;
+        if (isAuthorized()) {
+            passwordService.removeAllByPersonId(signedAccount.getId());
+            return PASSWORDS_DELETED_SUCCESSFULLY;
+        } else {
+            return ACCOUNT_NOT_FOUND;
+        }
     }
 
-    public String deleteService() {
-        return null;
+    @ShellMethod(key = "delete -s", value = "Removal all passwords for current service. Example: delete -s <service>")
+    public String deleteService(@ShellOption String name) {
+        if(isAuthorized()){
+            passwordService.removeALLByServiceName(signedAccount.getId(), name);
+            return PASSWORDS_DELETED_SUCCESSFULLY;
+        }else{
+            return ACCOUNT_NOT_FOUND;
+        }
+    }
+
+    @ShellMethod(key = "delete account", value = "Removal account. You need to be logged in. Example: delete -acc")
+    public String deleteAccount(){
+        if (isAuthorized()){
+            personService.removePerson(signedAccount);
+            this.signedAccount = null;
+            return ACCOUNT_SUCCESSFULLY_REMOVED;
+        }else{
+            return ACCOUNT_NOT_FOUND;
+        }
     }
 
     private boolean isAuthorized() {

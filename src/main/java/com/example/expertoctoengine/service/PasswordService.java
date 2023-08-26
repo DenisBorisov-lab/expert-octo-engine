@@ -9,6 +9,8 @@ import java.util.UUID;
 public interface PasswordService {
     Password savePassword(Password password);
     void removePassword(Password password);
+    void removeAllByPersonId(UUID id);
+    void removeALLByServiceName(UUID id, String serviceName);
     Password getPasswordById(Long id);
     List<Password> getPasswordsByPersonId(UUID id);
     List<Password> getPasswordsByPersonIdAndService(UUID uuid, String service);

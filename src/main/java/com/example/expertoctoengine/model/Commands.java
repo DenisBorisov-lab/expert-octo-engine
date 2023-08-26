@@ -14,4 +14,8 @@ public class Commands {
     public static final String PASSWORD_ALREADY_EXIST = "This password is already exists";
     public static final String NO_PASSWORD_WITH_SUCH_ID = "There is no password with such id";
     public static final String NO_PASSWORDS = "There are no passwords";
+    public static final String PASSWORD_DELETED_SUCCESSFULLY = "Password was successfully deleted!";
+    public static final String PASSWORDS_DELETED_SUCCESSFULLY = "Passwords were successfully deleted!";
+    public static final String NO_SUCH_PASSWORD = "There is no such password!";
+    public static final String ACCOUNT_SUCCESSFULLY_REMOVED = "This account eas successfully removed. Good luck";
 }
