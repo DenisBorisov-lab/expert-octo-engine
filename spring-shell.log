@@ -104,3 +104,34 @@
 1693090501875:register Denis
 1693090507102:save Spotify admin 12344
 1693090510391:delete account
+1693091350073:register Denis
+1693091358698:save Spotify admin 1234
+1693091370034:update -s Spotify Yandex
+1693091381831:password -a
+1693091397609:update -s Spotify Ter
+1693091504836:register SDen
+1693091510064:save Spotify admin 1234
+1693091520766:update -s Spotify yandex
+1693091541859:register Denis
+1693091549334:save Spotify admin 12345
+1693091560332:update -s Spotify Yandex
+1693091761236:register Denis
+1693091765136:save Spotify admin 1234
+1693091770307:save Spotify err 213
+1693091773565:password -a
+1693091782091:update -s Spotify Yandex
+1693091785290:password -a
+1693092544855:help
+1693092551495:register Denis
+1693092566288:save Spotify admin 1234
+1693092573746:save Spotify df 123
+1693092578834:password -a
+1693092604140:update -s -id Yandex 1
+1693092619047:stacktrace
+1693092704328:register Denis
+1693092708757:save Spotify admin 1234
+1693092714601:save spotify fre 1234
+1693092717545:password -a
+1693092726551:update -s -id Yandex 1
+1693092730102:password -a
+1693092793219:exit

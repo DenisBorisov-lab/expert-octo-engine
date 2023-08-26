@@ -101,14 +101,14 @@ public class UserCommands {
     }
 
     @ShellMethod(key = "password", value = "Getting password by service and login. Example: password <service> <login>")
-    public String getPasswordByServiceAndLogin(@ShellOption(arity = 2) String[] args){
-        if(isAuthorized()){
+    public String getPasswordByServiceAndLogin(@ShellOption(arity = 2) String[] args) {
+        if (isAuthorized()) {
             String serviceName = args[0];
             String login = args[1];
             Password password = passwordService.getPasswordByPersonIdAndServiceAndLogin(signedAccount.getId(), serviceName, login);
             return password != null ? OutputService.outputPassword(password) : NO_SUCH_PASSWORD;
 
-        }else{
+        } else {
             return ACCOUNT_NOT_FOUND;
         }
 
@@ -147,24 +147,47 @@ public class UserCommands {
 
     @ShellMethod(key = "delete -s", value = "Removal all passwords for current service. Example: delete -s <service>")
     public String deleteService(@ShellOption String name) {
-        if(isAuthorized()){
+        if (isAuthorized()) {
             passwordService.removeALLByServiceName(signedAccount.getId(), name);
             return PASSWORDS_DELETED_SUCCESSFULLY;
-        }else{
+        } else {
             return ACCOUNT_NOT_FOUND;
         }
     }
 
-    @ShellMethod(key = "delete account", value = "Removal account. You need to be logged in. Example: delete -acc")
-    public String deleteAccount(){
-        if (isAuthorized()){
+    @ShellMethod(key = "delete account", value = "Removal account. You need to be logged in. Example: delete account")
+    public String deleteAccount() {
+        if (isAuthorized()) {
             personService.removePerson(signedAccount);
             this.signedAccount = null;
             return ACCOUNT_SUCCESSFULLY_REMOVED;
-        }else{
+        } else {
             return ACCOUNT_NOT_FOUND;
         }
     }
+
+    @ShellMethod(key = "update -s", value = "Updating service name. Example: update -s <old service> <new service>")
+    public String updateServices(@ShellOption(arity = 2) String[] args) {
+        if (isAuthorized()) {
+            String oldServiceName = args[0];
+            String newServiceName = args[1];
+            passwordService.changeServiceByPersonId(signedAccount, newServiceName, oldServiceName);
+            return RENAME_SERVICES_SUCCESSFUL;
+
+        } else {
+            return ACCOUNT_NOT_FOUND;
+        }
+    }
+
+    @ShellMethod(key = "update -id -s", value = "Updating service by id. Example: update -id -s <id> <service>")
+    public String updateServiceById(@ShellOption(arity = 2) String[] args) {
+        if (isAuthorized()) {
+            return passwordService.changeServiceByPasswordId(Long.parseLong(args[1]), args[0]) ? RENAME_SERVICE_SUCCESSFUL : NO_PASSWORD_WITH_SUCH_ID;
+        } else {
+            return ACCOUNT_NOT_FOUND;
+        }
+    }
+    // TODO: 27.08.2023 Дописать update пароля и логина 
 
     private boolean isAuthorized() {
         return this.signedAccount != null;

@@ -33,9 +33,13 @@ public interface PasswordRepository extends CrudRepository<Password, Long> {
                                                     @Param(value = "login") String newLogin);
 
     @Modifying
-    @Query("update Password u set u.service = :service where u.person = :id and u.login = :login and u.password = :password")
-    void updateServiceByPersonIdAndLoginAndPassword(@Param(value = "id") Person person,
-                                                    @Param(value = "login") String login,
-                                                    @Param(value = "password") String password,
-                                                    @Param(value = "service") String newServiceName);
+    @Query("update Password u set u.service = :new_service where u.person = :id and u.service = :old_service")
+    void updateServiceByPersonId(@Param(value = "id") Person person,
+                                 @Param(value = "new_service") String newService,
+                                 @Param(value="old_service") String oldService);
+
+    @Modifying
+    @Query("update Password u set u.service = :service where u.id = :id")
+    void changeServiceByPasswordId(@Param(value = "id") Long id,
+                                   @Param(value = "service") String service);
 }

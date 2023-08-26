@@ -83,7 +83,13 @@ public class PasswordServiceImpl implements PasswordService {
     }
 
     @Override
-    public void changeServiceByPeronIdAndLoginAndPassword(Person person, String login, String password, String newServiceName) {
-        passwordRepository.updateServiceByPersonIdAndLoginAndPassword(person, login, password, newServiceName);
+    public void changeServiceByPersonId(Person person, String newService, String oldService) {
+        passwordRepository.updateServiceByPersonId(person, newService, oldService);
+    }
+
+    @Override
+    public boolean changeServiceByPasswordId(Long id, String serviceName) {
+        passwordRepository.changeServiceByPasswordId(id, serviceName);
+        return passwordRepository.existsById(id);
     }
 }

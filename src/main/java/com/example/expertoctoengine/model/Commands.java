@@ -18,4 +18,6 @@ public class Commands {
     public static final String PASSWORDS_DELETED_SUCCESSFULLY = "Passwords were successfully deleted!";
     public static final String NO_SUCH_PASSWORD = "There is no such password!";
     public static final String ACCOUNT_SUCCESSFULLY_REMOVED = "This account was successfully removed. Good luck!";
+    public static final String RENAME_SERVICES_SUCCESSFUL = "Services were successfully renamed!";
+    public static final String RENAME_SERVICE_SUCCESSFUL = "Service was successfully renamed!";
 }

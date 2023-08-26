@@ -17,7 +17,8 @@ public interface PasswordService {
     Password getPasswordByPersonIdAndServiceAndLogin(UUID uuid, String service, String login);
     void changePasswordByPersonIdAndServiceAndLogin(Person person, String service, String login, String newPassword);
     void changeLoginByPersonIdAndServiceAndPassword(Person person, String service, String password, String newLogin);
-    void changeServiceByPeronIdAndLoginAndPassword(Person person, String login, String password, String newServiceName);
+    void changeServiceByPersonId(Person person, String newService,  String oldService);
+    boolean changeServiceByPasswordId(Long id, String serviceName);
 
 
 }
