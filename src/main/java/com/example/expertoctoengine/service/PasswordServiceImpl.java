@@ -33,9 +33,9 @@ public class PasswordServiceImpl implements PasswordService {
 
     @Override
     public void removePassword(Password password) {
-        if (passwordRepository.existsById(password.getId())){
+        if (passwordRepository.existsById(password.getId())) {
             passwordRepository.delete(password);
-        }else{
+        } else {
             log.error(String.format("Password with id: %s was not found!", password.getId()));
         }
     }
@@ -73,13 +73,15 @@ public class PasswordServiceImpl implements PasswordService {
     }
 
     @Override
-    public void changePasswordByPersonIdAndServiceAndLogin(Person person, String service, String login, String newPassword) {
+    public boolean changePasswordByPersonIdAndServiceAndLogin(Person person, String service, String login, String newPassword) {
         passwordRepository.updatePasswordByPersonIdAndServiceAndLogin(person, service, login, newPassword);
+        return passwordRepository.findPasswordByPersonIdAndServiceAndLogin(person.getId(), service, login) != null;
     }
 
     @Override
-    public void changeLoginByPersonIdAndServiceAndPassword(Person person, String service, String password, String newLogin) {
+    public boolean changeLoginByPersonIdAndServiceAndPassword(Person person, String service, String password, String newLogin) {
         passwordRepository.updateLoginByPersonIdAndServiceAndPassword(person, service, password, newLogin);
+        return passwordRepository.findPasswordByPersonIdAndServiceAndLogin(person.getId(), service, newLogin) != null;
     }
 
     @Override
@@ -90,6 +92,18 @@ public class PasswordServiceImpl implements PasswordService {
     @Override
     public boolean changeServiceByPasswordId(Long id, String serviceName) {
         passwordRepository.changeServiceByPasswordId(id, serviceName);
+        return passwordRepository.existsById(id);
+    }
+
+    @Override
+    public boolean changePasswordById(Long id, String password) {
+        passwordRepository.changePasswordByPasswordId(id, password);
+        return passwordRepository.existsById(id);
+    }
+
+    @Override
+    public boolean changeLoginById(Long id, String login) {
+        passwordRepository.changeLoginById(id, login);
         return passwordRepository.existsById(id);
     }
 }

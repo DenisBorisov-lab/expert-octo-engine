@@ -32,7 +32,7 @@ public class Person {
     )
     private List<Password> passwords;
 
-    public void removePassword(Password password){
+    public void removePassword(Password password) {
         this.passwords.remove(password);
     }
 }

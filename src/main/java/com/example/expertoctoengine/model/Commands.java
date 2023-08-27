@@ -20,4 +20,7 @@ public class Commands {
     public static final String ACCOUNT_SUCCESSFULLY_REMOVED = "This account was successfully removed. Good luck!";
     public static final String RENAME_SERVICES_SUCCESSFUL = "Services were successfully renamed!";
     public static final String RENAME_SERVICE_SUCCESSFUL = "Service was successfully renamed!";
+    public static final String UPDATE_PASSWORD_SUCCESSFUL = "Password was successfully update!";
+    public static final String NUMBER_FORMAT_EXCEPTION = "Id must be long type!";
+    public static final String UPDATE_LOGIN_SUCCESSFUL = "Login was updated successfully!";
 }

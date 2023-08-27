@@ -182,12 +182,62 @@ public class UserCommands {
     @ShellMethod(key = "update -id -s", value = "Updating service by id. Example: update -id -s <id> <service>")
     public String updateServiceById(@ShellOption(arity = 2) String[] args) {
         if (isAuthorized()) {
-            return passwordService.changeServiceByPasswordId(Long.parseLong(args[1]), args[0]) ? RENAME_SERVICE_SUCCESSFUL : NO_PASSWORD_WITH_SUCH_ID;
+            try {
+                return passwordService.changeServiceByPasswordId(Long.parseLong(args[1]), args[0]) ? RENAME_SERVICE_SUCCESSFUL : NO_PASSWORD_WITH_SUCH_ID;
+            } catch (NumberFormatException ex) {
+                return NUMBER_FORMAT_EXCEPTION;
+            }
         } else {
             return ACCOUNT_NOT_FOUND;
         }
     }
-    // TODO: 27.08.2023 Дописать update пароля и логина 
+
+    @ShellMethod(key = "update -id -p", value = "Updating password by id. Example:  update -id -p <id> <new password>")
+    public String updatePasswordById(@ShellOption(arity = 2) String[] args) {
+        if (isAuthorized()) {
+            try {
+                return passwordService.changePasswordById(Long.parseLong(args[0]), args[1]) ? UPDATE_PASSWORD_SUCCESSFUL : NO_PASSWORD_WITH_SUCH_ID;
+            } catch (NumberFormatException exception) {
+                return NUMBER_FORMAT_EXCEPTION;
+            }
+
+        } else {
+            return ACCOUNT_NOT_FOUND;
+        }
+    }
+
+    @ShellMethod(key = "update -p", value = "Updating password by service and login. Example: update -p <service> <login> <password>")
+    public String updatePasswordByServiceAndLogin(@ShellOption(arity = 3) String[] args) {
+        String service = args[0];
+        String login = args[1];
+        String password = args[2];
+        return passwordService.changePasswordByPersonIdAndServiceAndLogin(signedAccount, service, login, password) ? UPDATE_PASSWORD_SUCCESSFUL : NO_SUCH_PASSWORD;
+    }
+
+    @ShellMethod(key = "update -id -l", value = "Updating login by id. Example: update -id -l <id> <login>")
+    public String updateLoginById(@ShellOption(arity = 2) String[] args) {
+        try {
+            Long id = Long.parseLong(args[0]);
+            String login = args[1];
+            return passwordService.changeLoginById(id, login) ? UPDATE_LOGIN_SUCCESSFUL : NO_PASSWORD_WITH_SUCH_ID;
+        } catch (NumberFormatException exception) {
+            return NUMBER_FORMAT_EXCEPTION;
+        }
+
+    }
+
+    @ShellMethod(key = "update -l", value = "Updating login. Example: update -l <service> <login> <password>")
+    public String updateLoginByPersonIdAndServiceAndPassword(@ShellOption(arity = 3) String[] args) {
+        if (isAuthorized()) {
+            String service = args[0];
+            String login = args[1];
+            String password = args[2];
+            return passwordService.changeLoginByPersonIdAndServiceAndPassword(signedAccount, service, password, login) ? UPDATE_LOGIN_SUCCESSFUL : NO_SUCH_PASSWORD;
+        } else {
+            return ACCOUNT_NOT_FOUND;
+        }
+    }
+
 
     private boolean isAuthorized() {
         return this.signedAccount != null;

@@ -135,3 +135,35 @@
 1693092726551:update -s -id Yandex 1
 1693092730102:password -a
 1693092793219:exit
+1693131132311:register Denis
+1693131140021:save Spotify admin 1234
+1693131143094:help
+1693131166552:udpate -id -p 1 loh
+1693131175189:update -id -p 1 loh
+1693131178919:password -a
+1693131194723:update -id -p 2 loh
+1693131200418:exit
+1693131220244:register Denis
+1693131225358:save Spotify admin 1234
+1693131241678:udpate -id -p ger der
+1693131251241:update -id -p ger ger
+1693131257121:stacktrace
+1693172486414:help
+1693172490034:register Denis
+1693172520229:save spotify admin 1234
+1693172542743:update -p Spotify admin kkkkk
+1693172559134:update -p spotify admin kkkkk
+1693172562463:password -a
+1693172566415:exit
+1693173421855:register Denis
+1693173443899:save Spotify admin 1234
+1693173545989:update -id -p 1 join
+1693173550973:password -a
+1693173630686:update -id -l 1 klkl
+1693173633606:password -a
+1693173637281:exit
+1693174277007:register Denis
+1693174282511:save Spotify admin 1234
+1693174330005:update -l Spotify lol 1234
+1693174333188:password -a
+1693174337204:exit
